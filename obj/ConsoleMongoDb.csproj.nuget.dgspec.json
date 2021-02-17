@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDb\\ConsoleMongoDb\\ConsoleMongoDb.csproj": {}
+    "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDB\\ConsoleMongoDb\\ConsoleMongoDb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDb\\ConsoleMongoDb\\ConsoleMongoDb.csproj": {
+    "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDB\\ConsoleMongoDb\\ConsoleMongoDb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDb\\ConsoleMongoDb\\ConsoleMongoDb.csproj",
+        "projectUniqueName": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDB\\ConsoleMongoDb\\ConsoleMongoDb.csproj",
         "projectName": "ConsoleMongoDb",
-        "projectPath": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDb\\ConsoleMongoDb\\ConsoleMongoDb.csproj",
+        "projectPath": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDB\\ConsoleMongoDb\\ConsoleMongoDb.csproj",
         "packagesPath": "C:\\Users\\Yellow\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDb\\ConsoleMongoDb\\obj\\",
+        "outputPath": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDB\\ConsoleMongoDb\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Yellow\\AppData\\Roaming\\NuGet\\NuGet.Config",

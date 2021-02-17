@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qBO+dLgMpKXzJFCztlMBL8lLNzFWe/uM5ZCVuLbW0QvoZvqEvB/kBRwRnL3WmtiBpKPj9Zm8Q3wj+ZyV6QPVEQ==",
+  "dgSpecHash": "oTtQ3EcaTbHfW9fTOvo+pv+Rd72JF3wJCMQ/7xxBTWwYOBtwyVTikrbkwzHhC2jC1H3BvRJn0nrRmVCk0gmzKw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDb\\ConsoleMongoDb\\ConsoleMongoDb.csproj",
+  "projectFilePath": "C:\\Users\\Yellow\\source\\repos\\ConsoleMongoDB\\ConsoleMongoDb\\ConsoleMongoDb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yellow\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\Yellow\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
