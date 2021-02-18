@@ -13,7 +13,7 @@ namespace ConsoleMongoDb.Entity
         [BsonElement("lastName")]
         public string LastName { get; set; }
 
-        public string toString()
+        public override string ToString()
         {
             return $"ID: {Id}\nFirst name: {FirstName}\nLastName: {LastName}";
         }

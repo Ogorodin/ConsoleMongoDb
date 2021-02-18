@@ -22,37 +22,52 @@ namespace ConsoleMongoDb.Helpers
             _collection = _db.GetCollection<Person>(Constants.CollectionName_users);
         }
 
-        public void InsertRecord<T>(string collectionName, Person record)
+        public void InsertRecord(string collectionName, Person record)
         {
             _collection.InsertOne(record);
         }
 
-        public List<T> LoadRecords<T>(string collectionName)
+        public List<Person> LoadRecords(string collectionName)
         {
-            var collection = _db.GetCollection<T>(collectionName);
+            var collection = _db.GetCollection<Person>(collectionName);
             var result = collection.AsQueryable().ToList();
             return result;
         }
 
-        //public List<Person> FindPersonByFullName(string collectionName, string firstName, string lastName)
-        //{
-        //   // return _collection.Find(person => person.FirstName.Contains(firstName) && person.LastName.Contains(lastName)).ToList();
-        //}
+        public Person FindPersonById(string collectionName, string id)
+        {
+            try
+            {
+                var findFilter = Builders<Person>.Filter.Eq(person => person.Id, Guid.Parse(id));
+                Person person = _collection.Find(findFilter).FirstOrDefault();
+                return person;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
         public List<Person> FindPersonByLastName(string collectionName, string lastName)
         {
             return _collection.Find(person => person.LastName.Contains(lastName)).ToList();
         }
 
-        public void UpdatePerson()
+        public UpdateResult UpdatePerson(string id, string firstName, string lastName)
         {
-            /*
-                MyType myObject; // passed in 
-                var filter = Builders<MyType>.Filter.Eq(s => s.Id, id);
-                var result = await collection.ReplaceOneAsync(filter, myObject)
-            */
+            try
+            {
+                var findFilter = Builders<Person>.Filter.Eq(Constants.PersonID_fieldName, Guid.Parse(id));
+                var update = Builders<Person>.Update.Set(Constants.PersonFirstName_fieldName, firstName)
+                    .Set(Constants.PersonLastName_fieldName, lastName);
+                var we = _collection.UpdateOne(findFilter, update);
+                return we;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
-
         public DeleteResult DeleteById(string collectionName, string id)
         {
             var deleteFilter = Builders<Person>.Filter.Eq(person => person.Id, Guid.Parse(id));
@@ -67,7 +82,6 @@ namespace ConsoleMongoDb.Helpers
                 count++;
             }
             return count;
-
         }
     }
 }
