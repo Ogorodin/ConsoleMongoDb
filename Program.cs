@@ -1,5 +1,6 @@
 ﻿using System;
 using ConsoleMongoDb.Helpers;
+using ConsoleMongoDb.Repository;
 using Printer;
 
 namespace ConsoleMongoDb
@@ -8,8 +9,8 @@ namespace ConsoleMongoDb
     {
         static void Main(string[] args)
         {
-
-            GUI gui = new GUI();
+            IPersonRepository repository = new PersonRepository(Constants.DatabaseName);
+            GUI gui = new GUI(repository);
             gui.LoadMenu();
 
             Console.WriteLine("\n");

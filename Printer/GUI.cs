@@ -3,7 +3,6 @@ using ConsoleMongoDb.Helpers;
 using ConsoleMongoDb.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Printer
 {
@@ -13,9 +12,9 @@ namespace Printer
         private readonly IPersonRepository _mongoCrud;
 
 
-        public GUI()
+        public GUI(IPersonRepository personRepository)
         {
-            _mongoCrud = new PersonRepository(Constants.DatabaseName);
+            _mongoCrud = personRepository;
             Console.WriteLine("Welcome to your personal address book.");
         }
         public void LoadMenu()
