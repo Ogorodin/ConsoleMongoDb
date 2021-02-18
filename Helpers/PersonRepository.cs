@@ -13,33 +13,32 @@ namespace ConsoleMongoDb.Helpers
     {
 
         private readonly IMongoDatabase _db;
-        private readonly IMongoCollection<Person> _collection;
+        private readonly IMongoCollection<Person> _personCollection;
 
         public PersonRepository(string database)
         {
             var client = new MongoClient();
             _db = client.GetDatabase(database);
-            _collection = _db.GetCollection<Person>(Constants.CollectionName_users);
+            _personCollection = _db.GetCollection<Person>(Constants.CollectionName_users);
         }
 
-        public void InsertRecord(string collectionName, Person record)
+        public void InsertRecord(Person record)
         {
-            _collection.InsertOne(record);
+            _personCollection.InsertOne(record);
         }
 
         public List<Person> LoadRecords(string collectionName)
         {
-            var collection = _db.GetCollection<Person>(collectionName);
-            var result = collection.AsQueryable().ToList();
+                       var result = _personCollection.AsQueryable().ToList();
             return result;
         }
 
-        public Person FindPersonById(string collectionName, string id)
+        public Person FindPersonById(string id)
         {
             try
             {
                 var findFilter = Builders<Person>.Filter.Eq(person => person.Id, Guid.Parse(id));
-                Person person = _collection.Find(findFilter).FirstOrDefault();
+                Person person = _personCollection.Find(findFilter).FirstOrDefault();
                 return person;
             }
             catch (Exception)
@@ -48,9 +47,9 @@ namespace ConsoleMongoDb.Helpers
             }
         }
 
-        public List<Person> FindPersonByLastName(string collectionName, string lastName)
+        public List<Person> FindPersonByLastName(string lastName)
         {
-            return _collection.Find(person => person.LastName.Contains(lastName)).ToList();
+            return _personCollection.Find(person => person.LastName.Contains(lastName)).ToList();
         }
 
         public UpdateResult UpdatePerson(string id, string firstName, string lastName)
@@ -60,7 +59,7 @@ namespace ConsoleMongoDb.Helpers
                 var findFilter = Builders<Person>.Filter.Eq(Constants.PersonID_fieldName, Guid.Parse(id));
                 var update = Builders<Person>.Update.Set(Constants.PersonFirstName_fieldName, firstName)
                     .Set(Constants.PersonLastName_fieldName, lastName);
-                var we = _collection.UpdateOne(findFilter, update);
+                var we = _personCollection.UpdateOne(findFilter, update);
                 return we;
             }
             catch (Exception)
@@ -68,16 +67,16 @@ namespace ConsoleMongoDb.Helpers
                 return null;
             }
         }
-        public DeleteResult DeleteById(string collectionName, string id)
+        public DeleteResult DeleteById(string id)
         {
             var deleteFilter = Builders<Person>.Filter.Eq(person => person.Id, Guid.Parse(id));
-            return _collection.DeleteOne(deleteFilter);
+            return _personCollection.DeleteOne(deleteFilter);
         }
 
-        public long DeleteByLastName(string collectionName, string lastName)
+        public long DeleteByLastName(string lastName)
         {
             long count = 0;
-            while (_collection.DeleteOne(person => person.LastName.Contains(lastName)).DeletedCount > 0)
+            while (_personCollection.DeleteOne(person => person.LastName.Contains(lastName)).DeletedCount > 0)
             {
                 count++;
             }
