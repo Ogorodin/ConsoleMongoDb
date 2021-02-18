@@ -6,7 +6,7 @@ namespace ConsoleMongoDb.Helpers
 {
     public static class Constants
     {
-
+        public const string DatabaseName = "usersDB";
         public const string CollectionName_users = "users";
         public const string PersonID_fieldName = "_id";
         public const string PersonFirstName_fieldName = "firstName";

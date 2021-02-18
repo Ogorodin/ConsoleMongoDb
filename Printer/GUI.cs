@@ -1,5 +1,6 @@
 ﻿using ConsoleMongoDb.Entity;
 using ConsoleMongoDb.Helpers;
+using ConsoleMongoDb.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,12 +10,12 @@ namespace Printer
     class GUI
     {
 
-        private readonly PersonRepository mongoCrud;
+        private readonly IPersonRepository _mongoCrud;
 
 
         public GUI()
         {
-            mongoCrud = new PersonRepository("usersDB");
+            _mongoCrud = new PersonRepository(Constants.DatabaseName);
             Console.WriteLine("Welcome to your personal address book.");
         }
         public void LoadMenu()
@@ -47,7 +48,7 @@ namespace Printer
                             FirstName = firstName,
                             LastName = lastName
                         };
-                        mongoCrud.InsertRecord(person);
+                        _mongoCrud.InsertRecord(person);
                         LoadMenu();
                         break;
                     }
@@ -55,7 +56,7 @@ namespace Printer
                     {
                         Console.WriteLine("Insert ID: ");
                         string id = Console.ReadLine();
-                        Person person = mongoCrud.FindPersonById(id);
+                        Person person = _mongoCrud.FindPersonById(id);
                         if (person != null)
                         {
                             Console.WriteLine("=====================================");
@@ -75,7 +76,7 @@ namespace Printer
                         Console.WriteLine("Insert last name: ");
                         var user_input = Console.ReadLine();
 
-                        List<Person> listOfUsers = mongoCrud.FindPersonByLastName(user_input);
+                        List<Person> listOfUsers = _mongoCrud.FindPersonByLastName(user_input);
                         Console.WriteLine(listOfUsers.Count);
                         if (listOfUsers.Count < 1)
                         {
@@ -102,14 +103,22 @@ namespace Printer
                     {
                         Console.WriteLine("Enter the ID of the document you want to change:\n");
                         string id = Console.ReadLine();
-                        Person person = mongoCrud.FindPersonById(id);
+                        Person person = _mongoCrud.FindPersonById(id);
                         if (person != null)
                         {
                             Console.WriteLine("First name:\t");
                             string firstName = Console.ReadLine();
                             Console.WriteLine("Last name:\t");
                             string lastName = Console.ReadLine();
-                            mongoCrud.UpdatePerson(id, firstName, lastName);
+                            Person updatedPerson = new Person
+                            {
+                                Id = person.Id,
+                                FirstName = firstName,
+                                LastName = lastName
+                            };
+
+                            //  mongoCrud.UpdatePerson(id, firstName, lastName);
+                            _mongoCrud.UpdatePerson(id, updatedPerson);
                             Console.WriteLine("=====================================");
                             Console.WriteLine("The updated document has been updated.");
                         }
@@ -125,7 +134,7 @@ namespace Printer
                     {
                         Console.WriteLine("Enter the last for the record you want to delete: ");
                         string ln = Console.ReadLine();
-                        long deleteCount = mongoCrud.DeleteByLastName(ln);
+                        long deleteCount = _mongoCrud.DeleteByLastName(ln);
                         Console.WriteLine($"Number of records deleted is: {deleteCount}");
                         LoadMenu();
                         break;
@@ -134,7 +143,7 @@ namespace Printer
                     {
                         Console.WriteLine("Enter the ID for the record you want to delete: ");
                         string id = Console.ReadLine();
-                        if (mongoCrud.DeleteById(id).IsAcknowledged)
+                        if (_mongoCrud.DeleteById(id))
                         {
                             Console.WriteLine($"Record with ID {id} is deleted.");
                         }
@@ -147,7 +156,7 @@ namespace Printer
                     }
                 case 7: // FIND ALL
                     {
-                        var records = mongoCrud.LoadRecords(Constants.CollectionName_users);
+                        var records = _mongoCrud.LoadRecords();
                         Console.WriteLine("This is the entire users list\n");
                         Console.WriteLine("==================================================================================");
                         Console.WriteLine("|  ID \t\t\t\t\t | FIRST NAME \t\t|  LAST NAME \t |");
