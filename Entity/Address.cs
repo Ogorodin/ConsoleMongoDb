@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleMongoDb.Entity
 {
-    class Address
+    public class Address
     {
         [BsonId]
         public Guid Id { get; set; }

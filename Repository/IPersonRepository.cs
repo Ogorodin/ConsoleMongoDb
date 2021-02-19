@@ -5,7 +5,7 @@ namespace ConsoleMongoDb.Repository
 {
     interface IPersonRepository
     {
-        public void InsertRecord(Person record);
+        public bool InsertRecord(Person record);
         public List<Person> LoadRecords();
         public Person FindPersonById(string id);
         public List<Person> FindPersonByLastName(string lastName);

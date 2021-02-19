@@ -47,7 +47,14 @@ namespace Printer
                             FirstName = firstName,
                             LastName = lastName
                         };
-                        _mongoCrud.InsertRecord(person);
+                        if (_mongoCrud.InsertRecord(person))
+                        {
+                            Console.WriteLine("Record saved.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Something went wrong. Nothing was saved.");
+                        }
                         LoadMenu();
                         break;
                     }

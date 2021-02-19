@@ -17,9 +17,18 @@ namespace ConsoleMongoDb.Helpers
             _personCollection = db.GetCollection<Person>(Constants.CollectionName_users);
         }
 
-        public void InsertRecord(Person record)
+        public bool InsertRecord(Person record)
         {
-            _personCollection.InsertOne(record);
+            try {
+                _personCollection.InsertOne(record);
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exc caught.");
+                return false;
+            }
+            
         }
 
         public List<Person> LoadRecords()
@@ -52,7 +61,8 @@ namespace ConsoleMongoDb.Helpers
             try
             {
                 var findFilter = Builders<Person>.Filter.Eq(Constants.PersonID_fieldName, Guid.Parse(id));
-                var update = Builders<Person>.Update.Set(Constants.PersonFirstName_fieldName, firstName)
+                var update = Builders<Person>.Update
+                    .Set(Constants.PersonFirstName_fieldName, firstName)
                     .Set(Constants.PersonLastName_fieldName, lastName);
                 return _personCollection.UpdateOne(findFilter, update).ModifiedCount > 0;
             }

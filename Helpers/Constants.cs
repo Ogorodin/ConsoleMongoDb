@@ -16,6 +16,7 @@ namespace ConsoleMongoDb.Helpers
         public const string CollectionName_address = "address";
         public const string AddressID_fieldName = "_id";
         public const string AddressStreet_fieldName = "street";
+        public const string AddressNumber_fieldName = "number";
         public const string AddressCity_fieldName = "city";
     }
 }
