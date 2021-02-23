@@ -18,7 +18,10 @@ namespace ConsoleMongoDb
 
             IGenericRepository<Address> repository = new GenericRepository<Address>(Constants.DatabaseName, Constants.CollectionName_address);
 
+            repository.DeleteRecord("eae57032-0628-4345-acd8-2f43b9b9c8bf");
+
             List<Address> list = repository.LoadAllRecords();
+
             foreach (Address p in list)
             {
                 Console.WriteLine(p.ToString());

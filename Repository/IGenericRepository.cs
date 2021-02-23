@@ -1,15 +1,14 @@
-﻿using System;
+﻿using ConsoleMongoDb.Entity;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleMongoDb.Repository
-{
-   
-    interface IGenericRepository<T>
+{   
+    interface IGenericRepository<T> where T : BaseEntity
     {
         public List<T> LoadAllRecords();
+        public bool AddRecord(T record);
         public T FindById(string id);
-        public bool UpdateRecord(string id, T type);
+        public bool UpdateRecord<T>(string id, T updatedRecord) where T : BaseEntity;
         public bool DeleteRecord(string id);
     }
 }

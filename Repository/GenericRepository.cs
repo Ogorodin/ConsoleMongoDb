@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ConsoleMongoDb.Repository
 {
-    class GenericRepository<T> : IGenericRepository<T>
+    class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private IMongoCollection<T> _genericCollection;
 
@@ -28,18 +28,48 @@ namespace ConsoleMongoDb.Repository
                 return null;
             }
         }
+        public bool AddRecord(T record)
+        {
+            try
+            {
+                _genericCollection.InsertOne(record);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public T FindById(string id)
         {
-          
-            return default(T);
+            try
+            {
+                return _genericCollection.Find(record => record.Id == Guid.Parse(id)).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception caught in Console.MongoDb.Repository.GenericRepository.");
+                return null;
+            }
         }
-        public bool UpdateRecord(string id, T type)
+        public bool UpdateRecord<T>(string id, T updatedRecord) where T : BaseEntity
         {
+            //  _genericCollection.ReplaceOne(record => record.Id == Guid.Parse(id), updatedRecord);
+
             return true;
         }
         public bool DeleteRecord(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _genericCollection.DeleteOne(record => record.Id == Guid.Parse(id)).DeletedCount > 0;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception caught in Console.MongoDb.Repository.GenericRepository.");
+                return false;
+            }
+
         }
 
 

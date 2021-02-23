@@ -5,10 +5,8 @@ using System.Text;
 
 namespace ConsoleMongoDb.Entity
 {
-    public class Address
+    public class Address : BaseEntity
     {
-        [BsonId]
-        public Guid Id { get; set; }
         [BsonElement("street")]
         public string Street { get; set; }
         [BsonElement("number")]

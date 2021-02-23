@@ -9,7 +9,6 @@ namespace ConsoleMongoDb.Helpers
     public class PersonRepository : IPersonRepository
     {
         private readonly IMongoCollection<Person> _personCollection;
-
         public PersonRepository(string database)
         {
             var client = new MongoClient();

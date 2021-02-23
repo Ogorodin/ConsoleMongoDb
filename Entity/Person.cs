@@ -4,10 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ConsoleMongoDb.Entity
 {
-    public class Person
+    public class Person : BaseEntity
     {
-        [BsonId]
-        public Guid Id { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; }
         [BsonElement("lastName")]

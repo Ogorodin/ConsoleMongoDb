@@ -48,8 +48,8 @@ namespace ConsoleMongoDb.Repository
         {
             try
             {
-                var findFilter = Builders<Address>.Filter.Eq(address => address.Id, Guid.Parse(id));
-                return _addressCollection.Find(findFilter).FirstOrDefault();
+           //     var findFilter = Builders<Address>.Filter.Eq(address => address.Id, Guid.Parse(id));
+                return _addressCollection.Find(address => address.Id == Guid.Parse(id)).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -69,7 +69,6 @@ namespace ConsoleMongoDb.Repository
                 Console.WriteLine("Exc caught.");
                 return null;
             }
-
         }
 
         public List<Address> FindAddressByStreetName(string streetName)
@@ -83,7 +82,6 @@ namespace ConsoleMongoDb.Repository
                 Console.WriteLine("Exc caught.");
                 return null;
             }
-
         }
 
         public bool UpdateAddressById(string id, Address updatedAddress)
